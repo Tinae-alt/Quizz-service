@@ -27,12 +27,12 @@ public class QuizController {
     }
 
     @GetMapping("getById/{id}")
-    public ResponseEntity<List<QuestionDto>> getQuizById(@PathVariable("id") Long id){
+    public ResponseEntity<List<QuestionDto>> getQuizQuestions(@PathVariable("id") Long id){
         log.info("===Category==={}",id);
-        return quizService.getQuizById(id);
+        return quizService.getQuizQuestions(id);
     }
     @PostMapping("submit/{id}")
-    public ResponseEntity<Integer> getQuizById(@PathVariable("id") Long id ,@RequestBody List<ResponseDto> responses){
+    public ResponseEntity<Integer> getScore(@PathVariable("id") Long id ,@RequestBody List<ResponseDto> responses){
         log.info("===Category==={}",id);
         return quizService.calculateResult(id,responses);
     }

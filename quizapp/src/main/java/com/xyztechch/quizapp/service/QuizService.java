@@ -34,32 +34,23 @@ public class QuizService {
         return new ResponseEntity<>(questionsIds, HttpStatus.OK);
     }
 
-    public ResponseEntity<List<QuestionDto>> getQuizById(Long id) {
+    public ResponseEntity<List<QuestionDto>> getQuizQuestions(Long id) {
 
         Optional<Quiz> quiz = Optional.of(quizRepo.findById(id).orElseThrow());
         log.info("quizz {}", quiz.get().getQuestionsIds());
-
-//        if(quiz.isPresent())
-//        {
-//            return new ResponseEntity<>(quiz.get().getQuestions(),HttpStatus.OK);
-//        }
+        if(quiz.isPresent())
+        {
+        List<Integer> questionsIds = quiz.get().getQuestionsIds();
+        List<QuestionDto> questions = quizzInterface.getQuestiosFromId(questionsIds).getBody();
+            return new ResponseEntity<>(questions,HttpStatus.OK);
+        }
          return null;
 
     }
 
 
     public ResponseEntity<Integer> calculateResult(Long id, List<ResponseDto> responses) {
-//        Quiz quiz = quizRepo.findById(id).orElseThrow();
-//        List<Integer> questions = quiz.ge;
-//        int result = 0;
-//        int i = 0;
-//       for (ResponseDto responseDto : responses) {
-//           if(responseDto.getAnswer().equals(questions.get(i).getRightAnswer())){
-//               result += 1;
-//           }
-//           i++;
-//       }
-//        return new ResponseEntity<>(result, HttpStatus.OK);
-        return null;
+        ResponseEntity<Integer> score = quizzInterface.getScore(responses);
+        return score;
     }
 }
