@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.bouncycastle.util.Integers;
 
 import java.util.List;
 
@@ -18,6 +19,6 @@ public class Quiz {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String title;
-     @ManyToMany
-    private List<Question> questions;
+     @ElementCollection
+    private List<Integer> questionsIds;
 }
